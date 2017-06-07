@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>home work2</title>    
+    <script src="https://d3js.org/d3.v3.min.js"></script> 
+    <script >
+
+	var crandom=function(N,M){
+		var result=Math.floor(Math.random()*(M-N+1)+N);
+		return result;
+	}
+	
+	var launch=function(){
+		   var cresult=crandom(1911,2016);
+		   d3.select("#hw01").text(cresult);
+	}    
+    </script>   
+    
+</head>
+<body>
+<div id="hwt01">1.做一個啟動函式的按鈕按下後，會跳出一個介於1911~2016之間的數字</div> 
+<input type="button" onclick="launch();" value="啟動">   
+<script>
+    //作業01
+    d3.select("#hwt01").append("p").attr("id","hw01");
+</script>
+<hr> 
+<div id="hwt02">2.使用D3語法加上線譜跟字母與背景(OldLace)</div>
+<div id="hsvg1"></div> 
+<script>
+   //作業02
+   //畫布
+   var svg_w=400;//畫布寬
+   var svg_h=200;//畫布高
+ 
+   var svg1=d3.select("#hsvg1").append("svg").attr({
+        "width":svg_w,
+        "height":svg_h,
+        "id":"svg1"
+    });
+	
+	svg1.append("rect").attr({//背景
+        "x":0,
+        "y":0,
+        "width":svg_w,
+        "height":svg_h,
+		"fill":"#FDF5E6"		
+    });
+
+	var lstr_x=0;
+	var lstr_y=25;
+
+	var lend_x=svg_w;
+	var lend_y=25;
+	
+	var circle_r=15;//圓的半徑
+	var lspacing=circle_r*2;//間距
+	
+	var word_w=40;//字的大小
+
+	for(var i=0;i<5;i++){//線
+		svg1.append("line").attr({
+			"x1":lstr_x,
+			"y1":lstr_y+(lspacing*i),
+			"x2":lend_x,
+			"y2":lstr_y+(lspacing*i),
+			"stroke":"black" 
+		});
+	}
+
+    svg1.append("circle").attr({//音符圓
+        "cx":svg_w/2,
+        "cy":lstr_y+(lspacing*3)-circle_r,
+        "r":circle_r
+    });
+    svg1.append("rect").attr({//音符尾
+        "x":(svg_w/2)+(circle_r/2),
+        "y":lstr_y+(lspacing*0),
+        "width":circle_r/2,
+        "height":(lspacing*3)-circle_r
+    });
+
+    svg1.append("text").attr({//字
+        "x":(svg_w/2)-((word_w-circle_r)/2),
+        "y":lstr_y+(lspacing*5),
+		"font-size":word_w,
+		"font-family":"arial"
+    }).text('A');
+
+
+
+
+</script>
+<hr> 
+<div id="hwt03">3.用迴圈搭配亂數函式產生20條有數值的長條圖</div>
+<div id="hsvg2"></div> 
+<script>
+   //作業03
+   //畫布
+   var svg2_w=400;//畫布寬
+   var svg2_h=300;//畫布高
+ 
+   var svg2=d3.select("#hsvg2").append("svg").attr({
+        "width":svg2_w,
+        "height":svg2_h,
+        "id":"svg2"
+    });
+
+	for(var i=0;i<20;i++){
+    var num=crandom(20,300);
+	  svg2.append("rect").attr({
+		  "x":10,
+		  "y":10+(10+3)*i,
+		  "width":num,
+		  "height":10,
+		  "fill":"red"
+	  });
+	  
+    svg2.append("text").attr({
+        "x":15+num,
+        "y":10+9+(10+3)*i,        
+		"font-size":10,
+		"height":10,
+		"font-family":"arial",
+        "fill":"blue"        
+    }).text(num);
+
+	}
+</script>
+<hr> 
+<div id="hwt04">4.用迴圈搭配亂數函式產生有20筆資料的折線圖</div>
+<div id="hsvg3"></div> 
+<script>
+   //作業03
+   //畫布
+   var svg3_w=400;//畫布寬
+   var svg3_h=300;//畫布高
+ 
+   var svg3=d3.select("#hsvg3").append("svg").attr({
+        "width":svg3_w,
+        "height":svg3_h,
+        "id":"svg3"
+    });
+
+    var points="0,10 ";
+
+
+	for(var i=0;i<20;i++){
+    var num=crandom(20,300);
+      points=points+(10+num)+","+(10+9+(10+3)*i)+" ";
+	  svg3.append("circle").attr({
+	  "cx":10+num,
+	  "cy":10+9+(10+3)*i,
+	  "r":5,
+	  "fill":"red"
+	  });
+
+	  
+    svg3.append("text").attr({
+        "x":15+num,
+        "y":10+9+(10+3)*i,        
+		"font-size":10,
+		"height":10,
+		"font-family":"arial",
+        "fill":"blue"        
+    }).text(num);
+
+	}
+	
+  points=points+"0,"+(10+9+(10+3)*20);
+    svg3.append("polyline").attr({
+        "points":points,
+        "fill":"transparent",
+        "stroke":"black"
+    });
+
+</script>
+
+
+
+</body>
+</html>
